@@ -8,8 +8,10 @@ class DB:
         """
         To get the list of all the tables in the database
         """
+        tables = self.db.tables()
+        return list(tables)
         
-    def getPhone(self,brand,idx):
+    def get_phone(self,brand,idx):
         """
         Return phone data by brand
         args:
@@ -17,8 +19,22 @@ class DB:
         return:
             dict
         """
+        phone = self.db.table(brand)
+
+        return phone.get(doc_id=idx)
 
     def get_phone_list(self,brand):
         """
         Return phone list
         """
+        phone = self.db.table(brand)
+
+        return phone.all()
+
+    
+if __name__ == "__main__":
+    smartphone = DB("data.json")
+
+    tables = smartphone.get_tables()
+    print(smartphone.get_phone(tables[0], 20))
+    
