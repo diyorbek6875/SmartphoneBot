@@ -64,7 +64,26 @@ def get_phone(update: Update,context: CallbackContext):
     data = query.data
 
     brand = data.split("_")[-1]
-    query.answer(brand)
+
+    phones = smartphoneDB.get_phone_list(brand)
+
+    buttons = []
+    for i, phone in enumerate(phones[:10], 1):
+        name = phone.get("name")
+        color = phone.get("color")
+        ram = phone.get("RAM")
+        memory = phone.get("memory")
+
+        text = f"{name}, {color}-{ram}/{memory}"
+        button = InlineKeyboardButton(text=text, callback_data=f"phone_{brand}_{i}")
+        buttons.append([button])
+    back = InlineKeyboardButton(text="back", callback_data="shopping")
+    buttons.append([back])
+
+    reply_markup = InlineKeyboardMarkup(buttons)
+
+    query.edit_message_text("Yoqtirgan smartphoneinigzni tanlang!", reply_markup=reply_markup)
+    # query.answer(brand)
 
 updater = Updater(TOKEN)
 
