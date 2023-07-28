@@ -30,7 +30,9 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text("Welcome to Bot!", reply_markup=reply_markup)
 
 def main_menu(update: Update, context: CallbackContext):
-
+    """
+    
+    """
     query = update.callback_query
     shop = InlineKeyboardButton(text = "🛍 Shop", callback_data="shopping")
     card = InlineKeyboardButton(text = "📦 Cart", callback_data="card")
